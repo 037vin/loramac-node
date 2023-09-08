@@ -30,6 +30,10 @@
 #include "sx126x-board.h"
 #include "board.h"
 
+#include <zephyr/logging/log.h>
+#define LOG_MODULE_NAME RADIO
+LOG_MODULE_REGISTER(LOG_MODULE_NAME);
+
 /*!
  * \brief Initializes the radio
  *
@@ -1258,6 +1262,9 @@ void RadioIrqProcess( void )
     if( isIrqFired == true )
     {
         uint16_t irqRegs = SX126xGetIrqStatus( );
+
+        LOG_INF("GetIrqStatus returns %d", irqRegs);
+
         SX126xClearIrqStatus( irqRegs );
 
         // Check if DIO1 pin is High. If it is the case revert IrqFired to true
@@ -1267,6 +1274,10 @@ void RadioIrqProcess( void )
             IrqFired = true;
         }
         CRITICAL_SECTION_END( );
+
+        if( SX126xGetDio1PinState( ) == 1 ) {
+            LOG_INF("Radio.IrqProcess found DIO1 pin high");
+        }
 
         if( ( irqRegs & IRQ_TX_DONE ) == IRQ_TX_DONE )
         {
