@@ -1275,7 +1275,7 @@ void RadioIrqProcess( void )
         }
         CRITICAL_SECTION_END( );
 
-        if( SX126xGetDio1PinState( ) == 1 ) {
+        if( IrqFired ) {
             LOG_INF("Radio.IrqProcess found DIO1 pin high");
         }
 
