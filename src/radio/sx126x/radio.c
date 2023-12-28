@@ -1273,10 +1273,6 @@ void RadioIrqProcess( void )
         }
         CRITICAL_SECTION_END( );
 
-        if( IrqFired ) {
-            LOG_INF("Radio.IrqProcess found DIO1 pin high");
-        }
-
         if( ( irqRegs & IRQ_TX_DONE ) == IRQ_TX_DONE )
         {
             LOG_INF("IRQ_TX_DONE");
