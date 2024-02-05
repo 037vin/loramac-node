@@ -1051,12 +1051,12 @@ void RadioSend( uint8_t *buffer, uint8_t size )
 
 void RadioSleep( void )
 {
-    SleepParams_t params = { 0 };
+    /* SleepParams_t params = { 0 };
 
     params.Fields.WarmStart = 1;
     SX126xSetSleep( params );
 
-    DelayMs( 2 );
+    DelayMs( 2 ); */
 }
 
 void RadioStandby( void )
