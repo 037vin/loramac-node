@@ -30,10 +30,6 @@
 #include "sx126x-board.h"
 #include "board.h"
 
-#include <zephyr/logging/log.h>
-#define LOG_MODULE_NAME RADIO
-LOG_MODULE_REGISTER(LOG_MODULE_NAME);
-
 /*!
  * \brief Initializes the radio
  *
@@ -1275,7 +1271,6 @@ void RadioIrqProcess( void )
 
         if( ( irqRegs & IRQ_TX_DONE ) == IRQ_TX_DONE )
         {
-            LOG_INF("IRQ_TX_DONE");
             TimerStop( &TxTimeoutTimer );
             //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
             SX126xSetOperatingMode( MODE_STDBY_RC );
@@ -1287,12 +1282,10 @@ void RadioIrqProcess( void )
 
         if( ( irqRegs & IRQ_RX_DONE ) == IRQ_RX_DONE )
         {
-            LOG_INF("IRQ_RX_DONE");
             TimerStop( &RxTimeoutTimer );
 
             if( ( irqRegs & IRQ_CRC_ERROR ) == IRQ_CRC_ERROR )
             {
-                LOG_INF("IRQ_CRC_ERROR");
                 if( RxContinuous == false )
                 {
                     //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
@@ -1338,7 +1331,6 @@ void RadioIrqProcess( void )
 
         if( ( irqRegs & IRQ_RX_TX_TIMEOUT ) == IRQ_RX_TX_TIMEOUT )
         {
-            LOG_INF("IRQ_RX_TX_TIMEOUT");
             if( SX126xGetOperatingMode( ) == MODE_TX )
             {
                 TimerStop( &TxTimeoutTimer );
@@ -1363,25 +1355,21 @@ void RadioIrqProcess( void )
 
         if( ( irqRegs & IRQ_PREAMBLE_DETECTED ) == IRQ_PREAMBLE_DETECTED )
         {
-            LOG_INF("IRQ_PREAMBLE_DETECTED");
             //__NOP( );
         }
 
         if( ( irqRegs & IRQ_SYNCWORD_VALID ) == IRQ_SYNCWORD_VALID )
         {
-            LOG_INF("IRQ_SYNCWORD_VALID");
             //__NOP( );
         }
 
         if( ( irqRegs & IRQ_HEADER_VALID ) == IRQ_HEADER_VALID )
         {
-            LOG_INF("IRQ_HEADER_VALID");
             //__NOP( );
         }
 
         if( ( irqRegs & IRQ_HEADER_ERROR ) == IRQ_HEADER_ERROR )
         {
-            LOG_INF("IRQ_HEADER_ERROR");
             TimerStop( &RxTimeoutTimer );
             if( RxContinuous == false )
             {
