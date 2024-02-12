@@ -522,7 +522,7 @@ void RadioInit( RadioEvents_t *events )
     RadioEvents = events;
 
     SX126xInit( RadioOnDioIrq );
-    SX126xSetStandby( STDBY_RC );
+    SX126xSetStandby( STDBY_XOSC );
     SX126xSetRegulatorMode( USE_DCDC );
 
     SX126xSetBufferBaseAddress( 0x00, 0x00 );
