@@ -1058,7 +1058,7 @@ void RadioSleep( void )
 
 void RadioStandby( void )
 {
-    SX126xSetStandby( STDBY_RC );
+    SX126xSetStandby( STDBY_XOSC );
 }
 
 void RadioRx( uint32_t timeout )
