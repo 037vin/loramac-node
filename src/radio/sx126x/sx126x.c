@@ -125,6 +125,9 @@ void SX126xInit( DioIrqHandler dioIrq )
     // Initialize RF switch control
     SX126xIoRfSwitchInit( );
 
+    // Turn on and leave on if dio2_tx_enable is set
+    SX126xAntSwOn( );
+
     // Force image calibration
     ImageCalibrated = false;
 
@@ -253,7 +256,7 @@ uint32_t SX126xGetRandom( void )
 
 void SX126xSetSleep( SleepParams_t sleepConfig )
 {
-    SX126xAntSwOff( );
+    /* SX126xAntSwOff( ); */ // disable AntSwOff as we don't go into sleep mode
 
     uint8_t value = ( ( ( uint8_t )sleepConfig.Fields.WarmStart << 2 ) |
                       ( ( uint8_t )sleepConfig.Fields.Reset << 1 ) |
